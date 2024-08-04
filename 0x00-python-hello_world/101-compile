@@ -1,6 +1,7 @@
 #!/bin/bash
-# This script compiles a Python file specified in the PYFILE environment variable.
-# It then renames the output to match the desired format with a 'c' suffix.
+# This script compiles the Python file specified by the PYFILE environment variable
+# and renames the output file to match the required format. It's designed to handle 
+# different Python versions gracefully.
 
 # Check if PYFILE environment variable is set
 if [ -z "$PYFILE" ]; then
@@ -12,7 +13,8 @@ fi
 echo "Compiling $PYFILE ..."
 python3 -m py_compile "$PYFILE"
 
-# Rename the output file to include 'c'
-base="${PYFILE%.*}"
-ext="${PYFILE##*.}"
-mv "__pycache__/${base}.cpython-$(python3 -c 'import platform; print(platform.python_version_tuple()[0])').pyc" "${base}.pyc"
+# Extract the base name without extension
+base="${PYFILE%.py}"
+
+# Rename the compiled file from __pycache__ to base.pyc
+mv "__pycache__/${base##*/}.cpython-*.pyc" "${base}.pyc"
