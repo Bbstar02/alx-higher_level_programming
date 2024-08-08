@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
-# Iterate over the ASCII values for lowercase letters
+# Loop through ASCII values for lowercase letters and print each character
 for code in range(97, 123):
-    # Print each character corresponding to the ASCII value
     print(chr(code), end='')
 
